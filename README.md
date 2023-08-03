@@ -1,2 +1,2 @@
 # Tic-Tac-Toe
-This is my attempt at  Tic Tac Toe Game using C++
+2.This is the develoopment of  a Tic Tac Toe Game using C++ and the SFML library.
