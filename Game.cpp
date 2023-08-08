@@ -8,6 +8,50 @@
 
 using namespace std;
 
+
+bool checkWin(const vector<vector<char>>& board, char symbol){
+	       
+	for (int i = 0; i < 3; i++) {
+	        
+		if (board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) {
+	    	
+	    	return true; // Horizontal win
+	     }
+	    if (board[0][i] == symbol && board[1][i] == symbol && board[2][i] == symbol) {
+	                
+	                return true; // Vertical
+	     }
+	}
+	        
+	        
+	        // Diagonal win (top-left to bottom-right)
+	if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) {
+	 
+	       return true;
+	 
+	 }
+	        // Diagonal win (top-right to bottom-left)
+	 if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) {
+	 
+	 	return true;
+	 
+	 }
+	 
+	 return false;
+}
+	
+bool checkDraw(const vector<vector<char>>& board){
+	        
+	for (const auto& row : board) {
+		for (char cell : row) {
+	    	if (cell == '#') {
+	        	return false; // There is an empty cell, game is not a draw yet
+	        }
+		}
+	}
+	        return true; // All cells are filled, game is a draw
+}
+
 class TicTacToeNode {
 
 	public:
@@ -44,21 +88,18 @@ class TicTacToeNode {
 	            }
 	        }
 	    }
-	    bool checkWin(const vector<vector<char>>& board, char symbol){
-	        return false;
-	    }
-	     bool checkDraw(const vector<vector<char>>& board){
-	        return false;
-	     } 
 	
 };
 
 class State : public TicTacToeNode {
+	
 	public:
+	    
 	    State(vector<vector<char>> board, TicTacToeNode* parent = nullptr) : TicTacToeNode(board, parent) {}
 	
 	    unique_ptr<TicTacToeNode> makeAIMove(char AgentSymbol) override {
-		        int maxDepth = (Board.size() == 3) ? 5 : 3;
+		    
+		    int maxDepth = (Board.size() == 3) ? 5 : 3;
 	
 	        int bestScore = INT_MIN;
 	        unique_ptr<TicTacToeNode> bestMove = nullptr;
@@ -81,36 +122,7 @@ class State : public TicTacToeNode {
 	        return bestMove;
 	    }
 
-	    bool checkWin(const vector<vector<char>>& board, char symbol) const {
-	        for (int i = 0; i < 3; i++) {
-	            if (board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) {
-	                return true; // Horizontal win
-	            }
-	            if (board[0][i] == symbol && board[1][i] == symbol && board[2][i] == symbol) {
-	                return true; // Vertical win
-	            }
-	        }
-	        // Diagonal win (top-left to bottom-right)
-	        if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) {
-	            return true;
-	        }
-	        // Diagonal win (top-right to bottom-left)
-	        if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) {
-	            return true;
-	        }
-	        return false;
-	    }
-	
-	    bool checkDraw(const vector<vector<char>>& board) const {
-	        for (const auto& row : board) {
-	            for (char cell : row) {
-	                if (cell == '#') {
-	                    return false; // There is an empty cell, game is not a draw yet
-	                }
-	            }
-	        }
-	        return true; // All cells are filled, game is a draw
-	    }
+	  
 
     // ...
 	    int evaluateBoard(const vector<vector<char>>& board, char symbol) const {
@@ -225,6 +237,7 @@ vector<vector<char>> userPlay(const vector<vector<char>>& Board, int x, int y, c
     return newBoard;
 }
 
+
 int main() {
    
     srand(time(NULL));
@@ -235,7 +248,7 @@ int main() {
         return 1;
     }
 
-    sf::RenderWindow window(sf::VideoMode(400, 500), "Tic Tac Toe");
+    sf::RenderWindow window(sf::VideoMode(400, 400), "Tic Tac Toe");
     window.setFramerateLimit(60);
 
     vector<vector<char>> Board(3, vector<char>(3, '#'));
@@ -268,7 +281,7 @@ int main() {
 	                    TTT->Board = userPlay(TTT->Board, j, i, userSymbol);
 	
 	                    
-	                    if (!isBoardFull(TTT->Board) && !TTT->checkWin(TTT->Board, userSymbol)) {
+	                    if (!isBoardFull(TTT->Board) && !checkWin(TTT->Board, userSymbol)) {
 	                        TTT = TTT->makeAIMove(agentSymbol);
 	                    }
 	                }
@@ -341,10 +354,10 @@ int main() {
         message.setFillColor(sf::Color::Black);
 
         bool gameOver = false;
-        if (TTT->checkWin(TTT->Board, userSymbol)) {
+        if (checkWin(TTT->Board, userSymbol)) {
             message.setString("You win!");
             gameOver = true;
-        } else if (TTT->checkWin(TTT->Board, agentSymbol)) {
+        } else if (checkWin(TTT->Board, agentSymbol)) {
             message.setString("AI wins!");
             gameOver = true;
         } else if (isBoardFull(TTT->Board)) {
@@ -353,22 +366,37 @@ int main() {
         }
 
         
-        window.draw(message);
+       // window.draw(message);
         window.display();
 
         
+       
         if (gameOver) {
-            sf::Event gameOverEvent;
-            while (window.waitEvent(gameOverEvent)) {
-                if (gameOverEvent.type == sf::Event::Closed) {
-                    window.close();
+            sf::RenderWindow gameOverWindow(sf::VideoMode(200, 100), "Game Over");
+            gameOverWindow.setFramerateLimit(60);
+
+            sf::Text gameOverText;
+            gameOverText.setFont(font);
+            gameOverText.setCharacterSize(25);
+            gameOverText.setFillColor(sf::Color::Black);
+            gameOverText.setString(message.getString());
+
+            while (gameOverWindow.isOpen()) {
+                sf::Event gameOverEvent;
+                while (gameOverWindow.pollEvent(gameOverEvent)) {
+                    if (gameOverEvent.type == sf::Event::Closed) {
+                        window.close();
+                        gameOverWindow.close();
+                    }
                 }
-                if (gameOverEvent.type == sf::Event::KeyPressed) {
-                    break;
-                }
+
+                gameOverWindow.clear(sf::Color::White);
+                gameOverWindow.draw(gameOverText);
+                gameOverWindow.display();
             }
         }
     }
+    
 
     return 0;
 }
