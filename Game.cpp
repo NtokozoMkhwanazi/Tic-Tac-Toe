@@ -15,22 +15,22 @@ bool checkWin(const vector<vector<char>>& board, char symbol){
 	        
 		if (board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) {
 	    	
-	    	return true; // Horizontal win
+	    	return true;
 	     }
 	    if (board[0][i] == symbol && board[1][i] == symbol && board[2][i] == symbol) {
 	                
-	                return true; // Vertical
+	                return true; 
 	     }
 	}
 	        
 	        
-	        // Diagonal win (top-left to bottom-right)
+	       
 	if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) {
 	 
 	       return true;
 	 
 	 }
-	        // Diagonal win (top-right to bottom-left)
+	      
 	 if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) {
 	 
 	 	return true;
@@ -45,11 +45,11 @@ bool checkDraw(const vector<vector<char>>& board){
 	for (const auto& row : board) {
 		for (char cell : row) {
 	    	if (cell == '#') {
-	        	return false; // There is an empty cell, game is not a draw yet
+	        	return false; 
 	        }
 		}
 	}
-	        return true; // All cells are filled, game is a draw
+	        return true; 
 }
 
 class TicTacToeNode {
@@ -68,7 +68,7 @@ class TicTacToeNode {
 	        return nullptr;
 	    }
 
-	    virtual ~TicTacToeNode() {} // Virtual destructor
+	    virtual ~TicTacToeNode() {} 
 	
 	    bool isSafe(int i, int j) const {
 	        return i >= 0 && j >= 0 && i < Board.size() && j < Board[0].size() && Board[i][j] == '#';
@@ -124,36 +124,36 @@ class State : public TicTacToeNode {
 
 	  
 
-    // ...
+ 
 	    int evaluateBoard(const vector<vector<char>>& board, char symbol) const {
-	        // Check if the given symbol has won
+	       
 	        if (checkWin(board, symbol)) {
-	            return 10; // AI wins
+	            return 10;
 	        }
 
-        // Check if the opponent (user) can win in the next move
+        
 	        char opponentSymbol = (symbol == 'X') ? 'O' : 'X';
 	        if (checkWin(board, opponentSymbol)) {
-	            return -10; // Block opponent's win
+	            return -10;
 	        }
 	
-	        // Calculate weights for non-winning moves based on AI symbols in rows, columns, and diagonals
+	        
 	        int weight = 0;
 	        for (int i = 0; i < 3; i++) {
 	            for (int j = 0; j < 3; j++) {
 	                if (board[i][j] == symbol) {
-	                    // Increase weight for AI symbols in a row, column, or diagonal
+	                   
 	                    if (i == j || i + j == 2) {
-	                        weight += 2; // Diagonal
+	                        weight += 2; 
 	                    } else {
-	                        weight += 1; // Row or column
+	                        weight += 1; 
 	                    }
 	                } else if (board[i][j] == opponentSymbol) {
-	                    // Decrease weight for opponent symbols to block their moves
+	                 
 	                    if (i == j || i + j == 2) {
-	                        weight -= 2; // Diagonal
+	                        weight -= 2; 
 	                    } else {
-	                        weight -= 1; // Row or column
+	                        weight -= 1; 
 	                    }
 	                }
 	            }
@@ -162,12 +162,12 @@ class State : public TicTacToeNode {
 	    }
 	
 	    int minimax(State* state, char AgentSymbol, int depth, int alpha, int beta, bool isMaximizing) const {
-	        // Evaluate the board at the terminal nodes (leaf nodes)
+	       
 	        
 	        char userSymbol = (AgentSymbol == 'X') ? 'O' : 'X';
 	        int score = evaluateBoard(state->Board, AgentSymbol);
 	
-	        // Check if the game is over or maximum depth is reached
+	       
 	        if (score == 10 || score == -10 || depth == 0 || checkDraw(state->Board)) {
 	            return score;
 	        }
@@ -184,8 +184,7 @@ class State : public TicTacToeNode {
 	                        bestScore = max(bestScore, score);
 	                        alpha = max(alpha, bestScore);
 	                        if (beta <= alpha) {
-	                            // Beta cut-off
-	                            break;
+	                          break;
 	                        }
 	                    }
 	                }
@@ -203,7 +202,6 @@ class State : public TicTacToeNode {
 	                        bestScore = min(bestScore, score);
 	                        beta = min(beta, bestScore);
 	                        if (beta <= alpha) {
-	                            // Alpha cut-off
 	                            break;
 	                        }
 	                    }
@@ -223,14 +221,15 @@ bool isBoardFull(const vector<vector<char>>& board) {
     for (const auto& row : board) {
         for (char cell : row) {
             if (cell == '#') {
-                return false; // There is an empty cell, board is not full
+                return false; 
             }
         }
     }
-    return true; // All cells are filled, board is full
+    return true; 
 }
 
 vector<vector<char>> userPlay(const vector<vector<char>>& Board, int x, int y, char userSymbol) {
+   
     vector<vector<char>> newBoard = Board;
     newBoard[y][x] = userSymbol;
 
@@ -244,7 +243,7 @@ int main() {
 
     sf::Font font;
     if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")) {
-        std::cout << "Error loading font" << std::endl;
+        
         return 1;
     }
 
@@ -366,10 +365,8 @@ int main() {
         }
 
         
-       // window.draw(message);
         window.display();
 
-        
        
         if (gameOver) {
             sf::RenderWindow gameOverWindow(sf::VideoMode(200, 100), "Game Over");
@@ -390,7 +387,7 @@ int main() {
                     }
                 }
 
-                gameOverWindow.clear(sf::Color::White);
+                gameOverWindow.clear(sf::Color::Blue);
                 gameOverWindow.draw(gameOverText);
                 gameOverWindow.display();
             }
