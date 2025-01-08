@@ -1,7 +1,8 @@
 # Tic-Tac-Toe
 
 1.This is a Tic Tac Toe Game using C++ and the SFML library.
+2.Check out the Game.cpp file, you can play with the Agent which is unbeatable unfortunately because of the mininmax algorithm  if you dont trust me run it on your machine just compile it with the sfml library headers included then its good to go ...
 
-2.Only thing i did not include is the play again function i did not see the need because i made it for devs to explore and fool around with the Logic of the Agent current it uses Minimax and there are some cool algorithms we could use for the Logic of the Agent. but currently the Agent is unbeatable trust me i tried  :).
+g++ -o Game Game.cpp -lsfml=graphics -lsfml-window -lsfml-graphics
 
-This project is open for Development.
+This project is still open for Development.
