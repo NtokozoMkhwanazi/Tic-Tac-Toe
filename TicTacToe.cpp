@@ -1,6 +1,5 @@
-// main.cpp
 // Compile with SFML (graphics, window, system, audio):
-// g++ main.cpp -o tic_tac_toe -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+// g++ TicTacToe.cpp -o tic_tac_toe -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
