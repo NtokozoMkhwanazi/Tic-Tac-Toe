@@ -28,10 +28,9 @@ TicTacToe+ is a modern, visually appealing version of the classic Tic Tac Toe ga
 
 ## Screenshots
 
-*(A<img width="1366" height="768" alt="START" src="https://github.com/user-attachments/assets/9aad3a4a-5523-4562-a59b-1b540eab4772" />
+<img width="1366" height="768" alt="START" src="https://github.com/user-attachments/assets/9aad3a4a-5523-4562-a59b-1b540eab4772" />
 <img width="1366" height="768" alt="VERSUS" src="https://github.com/user-attachments/assets/bdf749f3-a38a-43c6-8912-cffd332ede59" />
-dd y<img width="1366" height="768" alt="GAMEPLAY" src="https://github.com/user-attachments/assets/294c1385-f5eb-45ac-ba5c-dfae51b9d999" />
-our own screenshots here for better presentation)*
+<img width="1366" height="768" alt="GAMEPLAY" src="https://github.com/user-attachments/assets/294c1385-f5eb-45ac-ba5c-dfae51b9d999" />
 
 ---
 
