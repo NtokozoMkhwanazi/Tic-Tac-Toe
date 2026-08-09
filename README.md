@@ -1,6 +1,6 @@
 ## TicTacToe+ (SFML C++ Game)
 
-TicTacToe+ is a modern, visually appealing version of the classic Tic Tac Toe game, built in **C++** using **SFML** for graphics, audio, and input. It features **Player vs Player** and **Player vs Algorithm** modes, multiple Algorithm difficulty levels, animated menus, sound effects. 
+TicTacToe+ is a modern, visually appealing version of the classic Tic Tac Toe game, built in **C++** using **SFML** for graphics, audio, and input. It features **Player vs Player** and Player vs Algorithm modes, multiple Algorithm difficulty levels, animated menus, sound effects. 
 ---
 ## GIF
 
